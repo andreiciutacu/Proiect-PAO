@@ -13,6 +13,8 @@ public class CPU extends Product {
     boolean cpuCooler;
     private int maximumMemory;
 
+
+
     public String getSocket() {
         return socket;
     }

@@ -1,9 +1,0 @@
-﻿price,stock,purchaseDate,manufacturer,name,socket,frequency,turboFrequency,cores,threads,lithography,cpuCooler,maximumMemory
-339,20,2018-10-25,Intel,6700k,1151,4,4.2,4,8,14,no,64
-350,15,2018-10-25,Intel,7700k,1151,4.2,4.5,4,8,14,no,64
-300,10,2018-10-25,Intel,7700,1151,3.6,4.2,4,8,14,yes,64
-370,30,2018-10-25,Intel,8700k,1151,3.7,4.7,6,12,14,no,128
-310,10,2018-10-25,Intel,8700,1151,3.2,4.6,6,12,14,yes,128
-140,15,2018-10-25,Intel,8300,1151,3.7,3.7,4,4,14,yes,64
-180,40,2018-10-25,Intel,6400,1151,2.7,3.3,4,4,14,yes,64
-

@@ -1,11 +1,13 @@
 package com.company;
 import com.company.people.*;
 import com.company.products.*;
+import com.company.services.UserServices;
 import com.company.util.CSVUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -126,18 +128,42 @@ public class Main {
             }
 
 
-
-
-
+        UserServices userServices = new UserServices();
+        System.out.println("Search menu:");
+        System.out.println("1. Search CPUs");
+        System.out.println("2. Search HDDs");
+        System.out.println("3. Search SSDs");
+        System.out.println("4. Search RAMs");
+        System.out.println("5. Search employee");
+        System.out.println("6. Exit");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Optiunea este:");
+        int option = scanner.nextInt();
+        while (option != 6) {
+            if(option == 1)
+                userServices.searchCPU(cpus);
+            if(option == 2)
+                userServices.searchHDD(hdds);
+            if(option == 3)
+                userServices.searchSSD(ssds);
+            if(option == 4)
+                userServices.searchRAM(rams);
+            if(option == 5)
+                userServices.searchEmployee(employees);
+            else
+                if (option > 6 || option < 1)
+                    System.out.println("Invalid");
+            option = scanner.nextInt();
+        }
 //        for(int i=0; i<productSize; i++)
 //        for(int i=0; i<products.length; i++)
 //            products[i].GeneralInfo();
 
-        for(int i = 0; i < employees.length; i++) {
-            System.out.println(employees[i].calculateBonus());
-            System.out.println(employees[i].yearlySalary());
-            employees[i].workingFor();
-        }
+//        for(int i = 0; i < employees.length; i++) {
+//            System.out.println(employees[i].calculateBonus());
+//            System.out.println(employees[i].yearlySalary());
+//            employees[i].workingFor();
+//        }
 
     }
 }

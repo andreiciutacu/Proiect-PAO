@@ -1,10 +1,9 @@
 package com.company.util;
 
+import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 
 public class AuditService {
@@ -15,22 +14,33 @@ public class AuditService {
         // specified by filepath
         File file = new File("CsvFiles/AuditFile.csv");
         try {
-            // create FileWriter object with file as parameter
-            FileWriter outputfile = new FileWriter(file);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
-            // create CSVWriter object filewriter object as parameter
-            CSVWriter writer = new CSVWriter(outputfile);
+            if (bufferedReader.readLine() == null) {
+                FileWriter outputfile = new FileWriter(file);
+                CSVWriter writer = new CSVWriter(outputfile);
+                // adding header to csv if null
+                String[] header = {"nume_actiune", "timestamp"};
+                writer.writeNext(header);
 
-            // adding header to csv
-            String[] header = { "nume_actiune", "timestamp" };
-            writer.writeNext(header);
+                String[] data = {callerName, callTime.toString()};
+                writer.writeNext(data);
 
-            // add data to csv
-            String[] data = {callerName, callTime.toString()};
-            writer.writeNext(data);
+                writer.flush();
+                writer.close();
+            }
+            else
+            {
+                FileWriter outputfile = new FileWriter(file,true);
+                CSVWriter writer = new CSVWriter(outputfile);
 
-            // closing writer connection
-            writer.close();
+                String[] data = {callerName, callTime.toString()};
+                writer.writeNext(data);
+
+                writer.flush();
+                writer.close();
+            }
+
         }
         catch (IOException e) {
             e.printStackTrace();
