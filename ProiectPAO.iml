@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.opencsv:opencsv:4.6" level="project" />
+    <orderEntry type="library" name="ojdbc10-full" level="project" />
   </component>
 </module>

@@ -50,6 +50,12 @@ public class SSD extends Product {
         if (super.getPrice() != 0 && capacity != 0) this.priceGB = price / capacity;
     }
 
+    public SSD(SSD ssd){
+        super(ssd.getPrice(), ssd.getStock(), ssd.getPurchaseDate(), ssd.getManufacturer(), ssd.getColor());
+        this.capacity = ssd.getCapacity();
+        this.cache = ssd.getCache();
+        this.priceGB = ssd.getPriceGB();
+    }
     @Override
     public void GeneralInfo() {
         System.out.println(getManufacturer() + " " + getCapacity() + "GB");

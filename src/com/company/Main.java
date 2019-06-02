@@ -1,13 +1,13 @@
 package com.company;
 import com.company.people.*;
 import com.company.products.*;
+import com.company.services.JDBCConnection;
 import com.company.services.UserServices;
 import com.company.util.CSVUtils;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
 
 public class Main {
 
@@ -16,12 +16,7 @@ public class Main {
 
 
 
-        //TODO: Adauga si restul produselor in caz de nevoie
         ArrayList<List<String>> employeeList, CPUList, RAMList, SSDList, HDDList;
-
-//        // TODO: De adaugat si restul produselor in cazul in care adaugam mai multe produse
-//        int productSize = cpus.length + rams.length + hdds.length + ssds.length;
-//        Product[] products = new Product[productSize];
 
         //Citire lista angajati
 
@@ -128,6 +123,26 @@ public class Main {
             }
 
 
+        int productSize = cpus.length + rams.length + hdds.length + ssds.length;
+        Product[] products = new Product[productSize];
+
+        int nr = cpus.length;
+        for(int i=0; i < nr; i++)
+            products[i] = new CPU(cpus[i]);
+        nr += rams.length;
+        for(int i = nr - rams.length, j = 0; i < nr; i++, j++)
+            products[i] = new RAM(rams[j]);
+        nr += hdds.length;
+        for(int i = nr - hdds.length, j=0; i < nr; i++, j++)
+            products[i] = new HDD(hdds[j]);
+        nr += ssds.length;
+        for(int i = nr - ssds.length, j=0; i < nr; i++, j++ )
+            products[i] = new SSD(ssds[j]);
+
+        //Sorting the arrays
+        Arrays.sort(products, Comparator.comparing(Product::getManufacturer));
+        Arrays.sort(employees, Comparator.comparing(Employee::getName));
+
         UserServices userServices = new UserServices();
         System.out.println("Search menu:");
         System.out.println("1. Search CPUs");
@@ -135,11 +150,16 @@ public class Main {
         System.out.println("3. Search SSDs");
         System.out.println("4. Search RAMs");
         System.out.println("5. Search employee");
-        System.out.println("6. Exit");
+        System.out.println("6. Stergere angajat dupa index");
+        System.out.println("7. Stergere angajat dupa un termen");
+        System.out.println("8. Verificare stoc produs");
+        System.out.println("9. Calculeaza bonusuri de sarbatori");
+        System.out.println("10. Calculeaza salarii anuale angajati");
+        System.out.println("11. Exit");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Optiunea este:");
         int option = scanner.nextInt();
-        while (option != 6) {
+        while (option != 11) {
             if(option == 1)
                 userServices.searchCPU(cpus);
             if(option == 2)
@@ -150,20 +170,53 @@ public class Main {
                 userServices.searchRAM(rams);
             if(option == 5)
                 userServices.searchEmployee(employees);
+            if (option == 6) {
+                System.out.println("Index: ");
+                int index = scanner.nextInt();
+                userServices.deleteEmployee(employees, index);
+            }
+            if (option == 7){
+                System.out.println("Term: ");
+                String term = scanner.next();
+                userServices.deleteEmployee(employees, term);
+            }
+            if (option == 8)
+                userServices.stocProdus(products);
+            if (option == 9)
+                for(int i = 0; i < employees.length; i++) {
+                    System.out.println(employees[i].getName());
+                    System.out.println("Salariul cu bonus este: " + employees[i].calculateBonus());
+                }
+            if (option == 10)
+                for(int i = 0; i < employees.length; i++) {
+                    System.out.println(employees[i].getName());
+                    System.out.println("Salariu anual: " + employees[i].yearlySalary());
+                }
             else
-                if (option > 6 || option < 1)
+                if (option > 11 || option < 1)
                     System.out.println("Invalid");
             option = scanner.nextInt();
         }
+
+
 //        for(int i=0; i<productSize; i++)
-//        for(int i=0; i<products.length; i++)
 //            products[i].GeneralInfo();
+//
 
-//        for(int i = 0; i < employees.length; i++) {
-//            System.out.println(employees[i].calculateBonus());
-//            System.out.println(employees[i].yearlySalary());
-//            employees[i].workingFor();
-//        }
+        JDBCConnection jdbcConnection = new JDBCConnection();
+        for(int i=0; i<hdds.length; i++)
+            jdbcConnection.addData(hdds[i]);
 
+        for(int i=0; i<employees.length; i++)
+            jdbcConnection.addData(employees[i]);
+
+        for(int i=0; i<rams.length; i++)
+            jdbcConnection.addData(rams[i]);
+
+        for(int i=0; i<cpus.length; i++)
+            jdbcConnection.addData(cpus[i]);
+
+        jdbcConnection.deleteDate(cpus[2]);
     }
 }
+

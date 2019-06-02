@@ -169,4 +169,33 @@ public class UserServices {
             }
         }
     }
+
+    public void deleteEmployee(Employee[] employee, int index){
+        for(int i = index; i < employee.length; i++)
+            employee[i] = employee[i+1];
+    }
+    public void deleteEmployee(Employee[] employee, String term){
+        int index = employee.length + 1;
+        for(int i = 0; i < employee.length; i++)
+            if (employee[i].getName().toLowerCase().contains(term.toLowerCase()))
+                index = i;
+        if (index <= employee.length)
+            for(int i = index; i < employee.length; i++)
+                employee[i] = employee[i+1];
+        else System.out.println("Invalid term");
+    }
+    public void stocProdus(Product[] products){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Termenul de cautare: ");
+        String term = scanner.next();
+        int index = -1;
+        for(int i=0; i < products.length; i++)
+            if (products[i].getManufacturer().toLowerCase().contains(term))
+                index = i;
+        if (index > -1) {
+            System.out.println("Produsul este: " + products[index].getManufacturer());
+            System.out.println("Stocul produsului cautat este: " + products[index].getStock());
+        }
+        else System.out.println("Produs inexistent");
+    }
 }
