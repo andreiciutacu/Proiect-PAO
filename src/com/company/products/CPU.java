@@ -121,6 +121,18 @@ public class CPU extends Product {
         this.maximumMemory = maximumMemory;
     }
 
+    public CPU(CPU cpu){
+        super(cpu.getPrice(), cpu.getStock(),cpu.getPurchaseDate(), cpu.getManufacturer() );
+        this.name = cpu.getName();
+        this.socket = cpu.getSocket();
+        this.frequency = cpu.getFrequency();
+        this.turboFrequency = cpu.getTurboFrequency();
+        this.cores = cpu.getCores();
+        this.threads = cpu.getThreads();
+        this.lithography = cpu.getLithography();
+        this.cpuCooler = cpu.isCpuCooler();
+        this.maximumMemory = cpu.getMaximumMemory();
+    }
     public boolean isOverclockable(){
         String productName =  this.getName();
         if (productName.charAt(this.getName().length() - 1) == 'K' || productName.charAt(this.getName().length() - 1) == 'k'){
@@ -132,6 +144,7 @@ public class CPU extends Product {
             return false;
         }
     }
+
 
     @Override
     public void GeneralInfo() {

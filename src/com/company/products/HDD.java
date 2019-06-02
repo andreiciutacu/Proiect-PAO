@@ -18,6 +18,10 @@ public class HDD extends SSD {
         this.rpm = rpm;
     }
 
+    public HDD(HDD hdd){
+        super(hdd.getPrice(), hdd.getStock(), hdd.getPurchaseDate(), hdd.getManufacturer(), hdd.getColor(), hdd.getCapacity(), hdd.getCache());
+        this.rpm = hdd.rpm;
+    }
     @Override
     public void GeneralInfo() {
         super.GeneralInfo();

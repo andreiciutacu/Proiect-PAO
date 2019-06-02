@@ -55,7 +55,13 @@ public class RAM extends Product {
         Size = size;
         this.voltage = voltage;
     }
-
+    public RAM(RAM ram){
+        super(ram.getPrice(), ram.getStock(), ram.getPurchaseDate(), ram.getManufacturer());
+        this.type = ram.getType();
+        this.speed = ram.getSpeed();
+        this.Size = ram.getSize();
+        this.voltage = ram.getVoltage();
+    }
     @Override
     public void GeneralInfo() {
         System.out.println(getManufacturer() + " " + getSize() + "GB " + getSpeed());

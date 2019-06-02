@@ -79,7 +79,6 @@ public class Employee implements EmployeeCalculations{
         LocalDate callTime = LocalDate.now();
         String functionName = new Object(){}.getClass().getEnclosingMethod().getName();
         AuditService.printCall(functionName, callTime);
-
         return getSalary() * (getBonusPercent() / 100 + 1);
     }
 
